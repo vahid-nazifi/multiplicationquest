@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Multiplication Quest – A fun, interactive multiplication learning game for children. Master your times tables through exciting adventures!">
+  <meta name="theme-color" content="#8b5cf6">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Math Quest">
+  <title>Multiplication Quest – Fun Math for Kids</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/png" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/screens.css">
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" aria-live="polite" role="status">
+    <div class="loading-content">
+      <div class="loading-mascot anim-float">
+        <svg viewBox="0 0 120 120" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="60,5 74,40 112,40 82,62 93,97 60,75 27,97 38,62 8,40 46,40" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+          <circle cx="48" cy="52" r="7" fill="#1a1045"/>
+          <circle cx="72" cy="52" r="7" fill="#1a1045"/>
+          <circle cx="50" cy="50" r="2.5" fill="white"/>
+          <circle cx="74" cy="50" r="2.5" fill="white"/>
+          <path d="M48 65 Q60 74 72 65" stroke="#1a1045" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <circle cx="43" cy="62" r="4" fill="#fca5a5" opacity="0.7"/>
+          <circle cx="77" cy="62" r="4" fill="#fca5a5" opacity="0.7"/>
+        </svg>
+      </div>
+      <h1 class="loading-title">Multiplication Quest</h1>
+      <div class="loading-bar-wrap"><div class="loading-bar" id="loading-bar"></div></div>
+      <p class="loading-text">Loading your adventure...</p>
+    </div>
+  </div>
+
+  <!-- Particle Canvas (behind overlays, above screens) -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Main App -->
+  <div id="app">
+
+    <!-- ===== MAIN MENU ===== -->
+    <section id="screen-menu" class="screen" role="main" aria-label="Main Menu">
+      <div class="menu-wrap container">
+
+        <!-- Header: streak badge -->
+        <div class="menu-top-bar">
+          <div class="daily-streak-badge" id="menu-streak-badge" title="Daily streak">
+            <span class="streak-fire">🔥</span>
+            <span id="menu-daily-streak">0</span>
+            <span class="streak-label">day streak</span>
+          </div>
+          <div class="menu-best-score-badge" title="Best score">
+            <span>🏆</span>
+            <span id="menu-best-score">0</span>
+          </div>
+        </div>
+
+        <!-- Mascot + Title -->
+        <div class="menu-hero">
+          <div class="menu-mascot-wrap">
+            <div class="mascot-container" id="mascot-container">
+              <!-- Stella the Star Mascot (SVG) -->
+              <svg id="mascot-svg" class="mascot-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" aria-label="Stella the star mascot" role="img">
+                <!-- Graduation cap -->
+                <rect x="65" y="20" width="70" height="10" rx="3" fill="#1e1b4b"/>
+                <rect x="80" y="10" width="40" height="12" rx="2" fill="#312e81"/>
+                <line x1="135" y1="25" x2="148" y2="45" stroke="#fbbf24" stroke-width="2.5"/>
+                <circle cx="149" cy="46" r="4" fill="#fbbf24"/>
+                <!-- Star body -->
+                <polygon points="100,45 118,85 162,85 128,108 140,148 100,125 60,148 72,108 38,85 82,85"
+                         fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+                <!-- Inner star highlight -->
+                <polygon points="100,55 113,82 143,82 120,98 128,125 100,110 72,125 80,98 57,82 87,82"
+                         fill="#fcd34d" opacity="0.5"/>
+                <!-- Eyes -->
+                <ellipse cx="85" cy="90" rx="9" ry="10" fill="#1a1045"/>
+                <ellipse cx="115" cy="90" rx="9" ry="10" fill="#1a1045"/>
+                <circle cx="88" cy="87" r="3" fill="white"/>
+                <circle cx="118" cy="87" r="3" fill="white"/>
+                <circle cx="87" cy="86" r="1.2" fill="white" opacity="0.8"/>
+                <circle cx="117" cy="86" r="1.2" fill="white" opacity="0.8"/>
+                <!-- Smile -->
+                <path d="M84 103 Q100 115 116 103" stroke="#1a1045" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <!-- Cheeks -->
+                <ellipse cx="73" cy="100" rx="7" ry="5" fill="#fca5a5" opacity="0.65"/>
+                <ellipse cx="127" cy="100" rx="7" ry="5" fill="#fca5a5" opacity="0.65"/>
+                <!-- Arms/hands -->
+                <ellipse cx="33" cy="108" rx="10" ry="7" fill="#fbbf24" transform="rotate(-20 33 108)"/>
+                <ellipse cx="167" cy="108" rx="10" ry="7" fill="#fbbf24" transform="rotate(20 167 108)"/>
+                <!-- Legs -->
+                <ellipse cx="72" cy="163" rx="8" ry="10" fill="#fbbf24"/>
+                <ellipse cx="128" cy="163" rx="8" ry="10" fill="#fbbf24"/>
+                <!-- Sparkles around mascot -->
+                <text x="15" y="75" font-size="14" opacity="0.7">✨</text>
+                <text x="165" y="75" font-size="14" opacity="0.7">✨</text>
+                <text x="170" y="130" font-size="12" opacity="0.6">⭐</text>
+              </svg>
+              <!-- Speech Bubble -->
+              <div class="mascot-speech" id="mascot-speech" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="menu-title-area">
+            <h1 class="menu-title">Multiplication<br>Quest</h1>
+            <p class="menu-subtitle">Your maths adventure awaits! ⭐</p>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="menu-stats-grid" role="region" aria-label="Your stats">
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-value" id="menu-stars">0</div>
+            <div class="stat-label">Stars</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-value" id="menu-accuracy">—</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🏅</div>
+            <div class="stat-value level-badge" id="menu-level">Lv.1</div>
+            <div class="stat-label">Level</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🔥</div>
+            <div class="stat-value" id="menu-best-streak">0</div>
+            <div class="stat-label">Best Streak</div>
+          </div>
+        </div>
+
+        <!-- XP Bar -->
+        <div class="xp-bar-container" role="progressbar" aria-label="Experience points" aria-valuemin="0" aria-valuemax="100" id="menu-xp-bar">
+          <div class="xp-bar-label">
+            <span id="menu-level-name">Multiplication Explorer</span>
+            <span id="menu-xp-text">0 XP</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="menu-xp-fill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="menu-nav" aria-label="Game navigation">
+          <button id="btn-play" class="btn btn-primary btn-lg w-full" aria-label="Play the game">
+            <span>🎮</span> PLAY NOW
+          </button>
+          <div class="menu-nav-row">
+            <button id="btn-achievements" class="btn btn-secondary" aria-label="View achievements">
+              🏆 Achievements
+            </button>
+            <button id="btn-progress" class="btn btn-secondary" aria-label="View progress">
+              📈 Progress
+            </button>
+            <button id="btn-settings" class="btn btn-secondary" aria-label="Open settings">
+              ⚙️ Settings
+            </button>
+          </div>
+        </nav>
+
+        <!-- Daily Challenge prompt -->
+        <div class="daily-challenge-banner" id="daily-challenge-banner">
+          <span class="daily-icon">📅</span>
+          <div class="daily-text">
+            <strong>Daily Challenge</strong>
+            <span id="daily-status-text">Ready!</span>
+          </div>
+          <button class="btn btn-sm" id="btn-daily-shortcut">Go!</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== MODE SELECT ===== -->
+    <section id="screen-mode-select" class="screen" aria-label="Choose game mode">
+      <div class="container">
+        <div class="nav-bar">
+          <button class="btn btn-icon back-btn" id="btn-back-mode" aria-label="Back to menu">←</button>
+          <h2 class="nav-title">Choose Your Adventure</h2>
+        </div>
+        <div class="mode-grid">
+          <button class="mode-card" id="mode-adventure" aria-label="Adventure Mode">
+            <div class="mode-icon">🗺️</div>
+            <div class="mode-info">
+              <h3 class="mode-title">Adventure Mode</h3>
+              <p class="mode-desc">Progress through levels and become a multiplication master!</p>
+            </div>
+            <div class="mode-level-badge" id="mode-adventure-level">Level 1</div>
+          </button>
+          <button class="mode-card" id="mode-quick" aria-label="Quick Play">
+            <div class="mode-icon">⚡</div>
+            <div class="mode-info">
+              <h3 class="mode-title">Quick Play</h3>
+              <p class="mode-desc">10 quick questions for a fast maths fix!</p>
+            </div>
+            <div class="mode-badge">10 Qs</div>
+          </button>
+          <button class="mode-card" id="mode-speed" aria-label="Speed Challenge">
+            <div class="mode-icon">🏎️</div>
+            <div class="mode-info">
+              <h3 class="mode-title">Speed Challenge</h3>
+              <p class="mode-desc">Answer as many as you can in 60 seconds!</p>
+            </div>
+            <div class="mode-badge">60s</div>
+          </button>
+          <button class="mode-card" id="mode-practice" aria-label="Practice Mode">
+            <div class="mode-icon">📚</div>
+            <div class="mode-info">
+              <h3 class="mode-title">Practice Mode</h3>
+              <p class="mode-desc">Choose your tables and practise without pressure.</p>
+            </div>
+            <div class="mode-badge">No Timer</div>
+          </button>
+          <button class="mode-card mode-card-daily" id="mode-daily" aria-label="Daily Challenge">
+            <div class="mode-icon">📅</div>
+            <div class="mode-info">
+              <h3 class="mode-title">Daily Challenge</h3>
+              <p class="mode-desc">Today's special set of questions. Come back every day!</p>
+            </div>
+            <div class="mode-badge daily-badge" id="daily-mode-badge">Today!</div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRACTICE SELECT ===== -->
+    <section id="screen-practice-select" class="screen" aria-label="Choose tables to practise">
+      <div class="container">
+        <div class="nav-bar">
+          <button class="btn btn-icon back-btn" id="btn-back-practice" aria-label="Back">←</button>
+          <h2 class="nav-title">Choose Your Tables</h2>
+        </div>
+        <p class="practice-hint">Tap a table to select it (you can pick more than one!)</p>
+        <div class="table-grid" id="practice-table-grid" role="group" aria-label="Times tables selection">
+          <!-- Buttons 1-10 generated by JS -->
+        </div>
+        <div class="practice-footer">
+          <p class="selected-label">Selected: <span id="selected-tables-text">None</span></p>
+          <button class="btn btn-primary btn-lg w-full" id="btn-start-practice" disabled>
+            Start Practice
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== GAME SCREEN ===== -->
+    <section id="screen-game" class="screen" aria-label="Game in progress">
+      <div class="game-layout">
+
+        <!-- Game Header -->
+        <div class="game-header">
+          <button class="btn btn-icon" id="btn-pause-game" aria-label="Pause game">⏸</button>
+          <div class="game-center-stats">
+            <div class="game-score-display">
+              <span class="score-label">Score</span>
+              <span class="score-value" id="game-score">0</span>
+            </div>
+            <div class="streak-display" id="streak-display">
+              <span class="streak-fire-icon">🔥</span>
+              <span class="streak-value" id="game-streak">0</span>
+            </div>
+          </div>
+          <div class="game-xp-area">
+            <span class="xp-label">XP</span>
+            <div class="progress-bar xp-mini-bar">
+              <div class="progress-fill" id="game-xp-fill" style="width:0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress indicator -->
+        <div class="game-progress-bar" role="progressbar" aria-label="Questions answered">
+          <div class="game-progress-fill" id="game-progress-fill" style="width:0%"></div>
+          <span class="game-progress-text" id="game-progress-text">0 / 10</span>
+        </div>
+
+        <!-- Game Content -->
+        <div class="game-content">
+
+          <!-- Timer -->
+          <div class="timer-area" id="timer-container">
+            <div class="timer-ring" id="timer-ring" aria-label="Time remaining">
+              <svg viewBox="0 0 80 80" width="80" height="80">
+                <circle class="timer-track" cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+                <circle class="timer-progress" id="timer-circle" cx="40" cy="40" r="34" fill="none"
+                        stroke="#8b5cf6" stroke-width="6" stroke-linecap="round"
+                        stroke-dasharray="213.6" stroke-dashoffset="0"
+                        transform="rotate(-90 40 40)"/>
+              </svg>
+              <span class="timer-text" id="timer-text">—</span>
+            </div>
+          </div>
+
+          <!-- Question Area -->
+          <div class="question-area" id="question-area">
+            <div class="question-label">What is...</div>
+            <div class="question-display" id="question-display" aria-live="polite" aria-label="Multiplication question">
+              ?
+            </div>
+          </div>
+
+          <!-- Small mascot + speech in game -->
+          <div class="game-mascot-mini" id="game-mascot-mini">
+            <div class="mini-mascot">
+              <svg viewBox="0 0 60 60" width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <polygon points="30,3 37,22 57,22 41,34 47,53 30,41 13,53 19,34 3,22 23,22" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+                <circle cx="24" cy="26" r="3.5" fill="#1a1045"/>
+                <circle cx="36" cy="26" r="3.5" fill="#1a1045"/>
+                <circle cx="25" cy="25" r="1.2" fill="white"/>
+                <circle cx="37" cy="25" r="1.2" fill="white"/>
+                <path d="M24 33 Q30 38 36 33" stroke="#1a1045" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="game-speech-bubble" id="game-speech" aria-live="polite"></div>
+          </div>
+
+          <!-- Answers Area -->
+          <div class="answers-area">
+            <!-- Multiple Choice Grid -->
+            <div class="answer-grid" id="answer-grid" role="group" aria-label="Answer choices">
+              <button class="answer-btn" id="answer-btn-0" aria-label="Answer option 1"></button>
+              <button class="answer-btn" id="answer-btn-1" aria-label="Answer option 2"></button>
+              <button class="answer-btn" id="answer-btn-2" aria-label="Answer option 3"></button>
+              <button class="answer-btn" id="answer-btn-3" aria-label="Answer option 4"></button>
+            </div>
+
+            <!-- Keypad (hidden by default) -->
+            <div class="keypad-area" id="keypad-area" style="display:none">
+              <div class="keypad-display" id="keypad-display" aria-live="polite">_</div>
+              <input type="hidden" id="keypad-input" value="">
+              <div class="keypad" id="keypad" role="group" aria-label="Number keypad">
+                <button class="keypad-btn" data-key="7">7</button>
+                <button class="keypad-btn" data-key="8">8</button>
+                <button class="keypad-btn" data-key="9">9</button>
+                <button class="keypad-btn" data-key="4">4</button>
+                <button class="keypad-btn" data-key="5">5</button>
+                <button class="keypad-btn" data-key="6">6</button>
+                <button class="keypad-btn" data-key="1">1</button>
+                <button class="keypad-btn" data-key="2">2</button>
+                <button class="keypad-btn" data-key="3">3</button>
+                <button class="keypad-btn keypad-clear" data-key="backspace">⌫</button>
+                <button class="keypad-btn" data-key="0">0</button>
+                <button class="keypad-btn keypad-submit" id="keypad-submit" data-key="enter">✓</button>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /game-content -->
+      </div><!-- /game-layout -->
+
+      <!-- Pause overlay (inside game screen) -->
+      <div class="pause-overlay" id="pause-overlay" style="display:none">
+        <div class="pause-card card">
+          <h2>⏸ Paused</h2>
+          <p>Take a breather! You're doing great.</p>
+          <button class="btn btn-primary w-full" id="btn-resume">▶ Resume</button>
+          <button class="btn btn-secondary w-full" id="btn-quit-game">🏠 Quit to Menu</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RESULTS SCREEN ===== -->
+    <section id="screen-results" class="screen" aria-label="Game results">
+      <div class="container">
+        <div class="results-container card">
+          <!-- Mascot reaction -->
+          <div class="results-mascot" id="results-mascot">
+            <svg viewBox="0 0 120 120" width="90" height="90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <polygon points="60,5 74,40 112,40 82,62 93,97 60,75 27,97 38,62 8,40 46,40" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+              <ellipse cx="47" cy="52" rx="8" ry="9" fill="#1a1045"/>
+              <ellipse cx="73" cy="52" rx="8" ry="9" fill="#1a1045"/>
+              <circle cx="49" cy="49.5" r="2.5" fill="white"/>
+              <circle cx="75" cy="49.5" r="2.5" fill="white"/>
+              <path d="M46 65 Q60 77 74 65" stroke="#1a1045" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <ellipse cx="37" cy="62" rx="6" ry="4.5" fill="#fca5a5" opacity="0.65"/>
+              <ellipse cx="83" cy="62" rx="6" ry="4.5" fill="#fca5a5" opacity="0.65"/>
+            </svg>
+          </div>
+
+          <h2 class="results-title" id="results-title">Round Complete! 🎉</h2>
+          <p class="results-message" id="results-message"></p>
+
+          <!-- Stars earned -->
+          <div class="results-stars" aria-label="Stars earned">
+            <span class="result-star" id="results-star-1">⭐</span>
+            <span class="result-star" id="results-star-2">⭐</span>
+            <span class="result-star" id="results-star-3">⭐</span>
+          </div>
+
+          <!-- Stats grid -->
+          <div class="results-stats-grid">
+            <div class="result-stat">
+              <span class="result-stat-icon">🎯</span>
+              <span class="result-stat-value" id="results-score">0</span>
+              <span class="result-stat-label">Score</span>
+            </div>
+            <div class="result-stat">
+              <span class="result-stat-icon">✅</span>
+              <span class="result-stat-value" id="results-accuracy">0%</span>
+              <span class="result-stat-label">Accuracy</span>
+            </div>
+            <div class="result-stat">
+              <span class="result-stat-icon">🔥</span>
+              <span class="result-stat-value" id="results-streak">0</span>
+              <span class="result-stat-label">Best Streak</span>
+            </div>
+            <div class="result-stat">
+              <span class="result-stat-icon">⚡</span>
+              <span class="result-stat-value" id="results-avg-time">—</span>
+              <span class="result-stat-label">Avg. Time</span>
+            </div>
+          </div>
+
+          <!-- XP Gain -->
+          <div class="results-xp-gain" id="results-xp-area">
+            <span class="xp-label-big">+</span>
+            <span class="xp-amount" id="results-xp-gain">0</span>
+            <span class="xp-label-big"> XP</span>
+          </div>
+
+          <!-- Actions -->
+          <div class="results-actions">
+            <button class="btn btn-primary btn-lg" id="btn-play-again">
+              🔄 Play Again
+            </button>
+            <button class="btn btn-secondary" id="btn-results-menu">
+              🏠 Menu
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ACHIEVEMENTS SCREEN ===== -->
+    <section id="screen-achievements" class="screen" aria-label="Achievements">
+      <div class="container">
+        <div class="nav-bar">
+          <button class="btn btn-icon back-btn" id="btn-back-achievements" aria-label="Back">←</button>
+          <h2 class="nav-title">🏆 Achievements</h2>
+        </div>
+        <p class="ach-progress-text" id="ach-progress-text">0 / 20 unlocked</p>
+        <div class="ach-filter-row" role="group" aria-label="Filter achievements">
+          <button class="btn btn-sm ach-filter active" data-filter="all">All</button>
+          <button class="btn btn-sm ach-filter" data-filter="unlocked">Unlocked</button>
+          <button class="btn btn-sm ach-filter" data-filter="locked">Locked</button>
+        </div>
+        <div class="achievements-grid" id="achievements-grid" role="list" aria-label="Achievement list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROGRESS DASHBOARD ===== -->
+    <section id="screen-progress" class="screen" aria-label="Progress dashboard">
+      <div class="container">
+        <div class="nav-bar">
+          <button class="btn btn-icon back-btn" id="btn-back-progress" aria-label="Back">←</button>
+          <h2 class="nav-title">📈 My Progress</h2>
+        </div>
+
+        <!-- Overview Stats -->
+        <div class="progress-overview-grid">
+          <div class="stat-card large-stat">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-value" id="progress-total-stars">0</div>
+            <div class="stat-label">Total Stars</div>
+          </div>
+          <div class="stat-card large-stat">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-value" id="progress-accuracy">—</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+          <div class="stat-card large-stat">
+            <div class="stat-icon">🔥</div>
+            <div class="stat-value" id="progress-best-streak">0</div>
+            <div class="stat-label">Best Streak</div>
+          </div>
+          <div class="stat-card large-stat">
+            <div class="stat-icon">📅</div>
+            <div class="stat-value" id="progress-days">0</div>
+            <div class="stat-label">Days Played</div>
+          </div>
+        </div>
+
+        <!-- Table Accuracy -->
+        <div class="section-card">
+          <h3 class="section-title">Times Table Accuracy</h3>
+          <div class="table-accuracy-list" id="table-accuracy-list">
+            <!-- Generated by JS: table number + progress bar -->
+          </div>
+        </div>
+
+        <!-- Recent Sessions Chart -->
+        <div class="section-card">
+          <h3 class="section-title">Recent Sessions</h3>
+          <div class="session-chart" id="session-chart" aria-label="Recent session accuracy chart">
+            <!-- Bar chart generated by JS -->
+          </div>
+        </div>
+
+        <!-- Sessions list -->
+        <div class="section-card">
+          <h3 class="section-title">History</h3>
+          <div class="sessions-list" id="sessions-list">
+            <!-- Recent sessions generated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SETTINGS SCREEN ===== -->
+    <section id="screen-settings" class="screen" aria-label="Settings">
+      <div class="container">
+        <div class="nav-bar">
+          <button class="btn btn-icon back-btn" id="btn-back-settings" aria-label="Back">←</button>
+          <h2 class="nav-title">⚙️ Settings</h2>
+        </div>
+
+        <!-- Sound Settings -->
+        <div class="settings-group">
+          <h3 class="settings-group-title">🔊 Sound</h3>
+          <div class="setting-row">
+            <label class="setting-label" for="setting-sound">Sound Effects</label>
+            <label class="toggle-wrap">
+              <input type="checkbox" id="setting-sound" class="toggle-input" checked>
+              <span class="toggle-slider" aria-hidden="true"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <label class="setting-label" for="setting-music">Background Music</label>
+            <label class="toggle-wrap">
+              <input type="checkbox" id="setting-music" class="toggle-input">
+              <span class="toggle-slider" aria-hidden="true"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <label class="setting-label" for="setting-tick">Timer Ticking Sound</label>
+            <label class="toggle-wrap">
+              <input type="checkbox" id="setting-tick" class="toggle-input">
+              <span class="toggle-slider" aria-hidden="true"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Timer Settings -->
+        <div class="settings-group">
+          <h3 class="settings-group-title">⏱ Timer</h3>
+          <div class="setting-row">
+            <label class="setting-label" for="setting-timer-visibility">Timer Display</label>
+            <select id="setting-timer-visibility" class="select">
+              <option value="visible">Show Timer</option>
+              <option value="icon">Icon Only</option>
+              <option value="hidden">Hide Timer</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Gameplay Settings -->
+        <div class="settings-group">
+          <h3 class="settings-group-title">🎮 Gameplay</h3>
+          <div class="setting-row">
+            <label class="setting-label" for="setting-answer-mode">Answer Input</label>
+            <select id="setting-answer-mode" class="select">
+              <option value="multiple-choice">Multiple Choice</option>
+              <option value="keypad">Number Keypad</option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <label class="setting-label" for="setting-animations">Animations</label>
+            <label class="toggle-wrap">
+              <input type="checkbox" id="setting-animations" class="toggle-input" checked>
+              <span class="toggle-slider" aria-hidden="true"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="settings-group danger-zone">
+          <h3 class="settings-group-title">⚠️ Data</h3>
+          <div class="setting-row">
+            <div>
+              <div class="setting-label">Reset All Progress</div>
+              <div class="setting-hint">This will delete all your stars, XP and achievements.</div>
+            </div>
+            <button class="btn btn-danger btn-sm" id="btn-reset-progress">Reset</button>
+          </div>
+        </div>
+
+        <!-- App Info -->
+        <div class="app-info">
+          <p>Multiplication Quest v1.0</p>
+          <p>Made with ❤️ for young mathematicians</p>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /app -->
+
+  <!-- ===== OVERLAYS ===== -->
+
+  <!-- Level Up Overlay -->
+  <div id="overlay-levelup" class="overlay" role="dialog" aria-modal="true" aria-label="Level up celebration">
+    <div class="levelup-content">
+      <div class="levelup-sparkles" aria-hidden="true">✨✨✨</div>
+      <div class="levelup-badge-anim" id="levelup-badge">🌟</div>
+      <h2 class="levelup-title">LEVEL UP!</h2>
+      <p class="levelup-new-level" id="levelup-new-level">Number Adventurer</p>
+      <div class="levelup-rewards" id="levelup-rewards">
+        <span class="reward-item">+100 XP</span>
+        <span class="reward-item">+5 ⭐</span>
+      </div>
+      <p class="levelup-desc" id="levelup-desc">New tables unlocked: 3, 4!</p>
+      <button class="btn btn-primary btn-lg" id="btn-levelup-continue">
+        🚀 Continue!
+      </button>
+    </div>
+  </div>
+
+  <!-- Achievement Unlock Overlay -->
+  <div id="overlay-achievement" class="overlay achievement-overlay" role="dialog" aria-modal="true" aria-label="Achievement unlocked">
+    <div class="achievement-unlock-card card">
+      <div class="ach-unlock-badge">🏅 Achievement Unlocked!</div>
+      <div class="ach-unlock-icon" id="achievement-unlock-icon">🌟</div>
+      <h3 class="ach-unlock-title" id="achievement-unlock-title">First Victory!</h3>
+      <p class="ach-unlock-desc" id="achievement-unlock-desc">Answer your first question correctly</p>
+      <button class="btn btn-primary" id="btn-ach-dismiss">Awesome! 🎉</button>
+    </div>
+  </div>
+
+  <!-- Reset Confirm Dialog -->
+  <div id="overlay-confirm" class="overlay" role="dialog" aria-modal="true" aria-label="Confirm reset">
+    <div class="confirm-card card">
+      <h3>⚠️ Reset Progress?</h3>
+      <p>This will delete all your stars, XP, and achievements. Are you sure?</p>
+      <div class="confirm-actions">
+        <button class="btn btn-danger" id="btn-confirm-reset">Yes, Reset</button>
+        <button class="btn btn-secondary" id="btn-cancel-reset">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Scripts (loaded in dependency order) -->
+  <script src="./js/storage.js"></script>
+  <script src="./js/progress.js"></script>
+  <script src="./js/achievements.js"></script>
+  <script src="./js/audio.js"></script>
+  <script src="./js/adaptive.js"></script>
+  <script src="./js/game.js"></script>
+  <script src="./js/mascot.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

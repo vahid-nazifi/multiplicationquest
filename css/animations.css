@@ -1,0 +1,501 @@
+/* ==========================================================================
+   Multiplication Quest - Keyframe Animations & Animation Utilities
+   File: css/animations.css
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Core Keyframe Animations
+   -------------------------------------------------------------------------- */
+
+/* Float: Subtle up-down bobbing motion */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Pulse: Soft scale heartbeat */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Spin: Smooth 360-degree continuous rotation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Bounce In: Spring-like scale entrance */
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.15);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Shake: Horizontal oscillation for incorrect inputs */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  15%, 45%, 75% {
+    transform: translateX(-8px);
+  }
+  30%, 60%, 90% {
+    transform: translateX(8px);
+  }
+}
+
+/* Pop: Instant punchy scale pop */
+@keyframes pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Glow Pulse: Box-shadow glow pulsing */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(139, 92, 246, 0.8), 0 0 48px rgba(167, 139, 250, 0.45);
+  }
+}
+
+/* Slide Up: Vertical entrance */
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide In Right */
+@keyframes slide-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide Out Left */
+@keyframes slide-out-left {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+/* Confetti Fall: Tumbling confetti particles */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg) scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* Star Burst: Expanding star reward animation */
+@keyframes star-burst {
+  0% {
+    transform: scale(0) translateY(0);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.4) translateY(-14px);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1) translateY(-22px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.4) translateY(-36px);
+    opacity: 0;
+  }
+}
+
+/* XP Count: XP floater drifting up and fading */
+@keyframes xp-count {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(0) scale(1.15);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(-12px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.9);
+  }
+}
+
+/* Ripple: Circular click ripple expansion */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* Timer Warning: High-stakes color shift & border strobe */
+@keyframes timer-warning {
+  0%, 100% {
+    color: var(--color-warning);
+    border-color: var(--color-warning);
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.4);
+  }
+  50% {
+    color: #ef4444;
+    border-color: #ef4444;
+    box-shadow: 0 0 26px rgba(239, 68, 68, 0.85);
+    transform: scale(1.05);
+  }
+}
+
+/* Mascot Happy: Light joyful bounce and rotation */
+@keyframes mascot-happy {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-14px) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-14px) rotate(6deg);
+  }
+}
+
+/* Mascot Excited: Energetic jumping celebration */
+@keyframes mascot-excited {
+  0%, 100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-24px) scale(1.1) rotate(-8deg);
+  }
+  40% {
+    transform: translateY(-6px) scale(1.05) rotate(8deg);
+  }
+  60% {
+    transform: translateY(-20px) scale(1.15) rotate(-6deg);
+  }
+  80% {
+    transform: translateY(-3px) scale(1.02) rotate(4deg);
+  }
+}
+
+/* Correct Flash: Radiant green feedback flash */
+@keyframes correct-flash {
+  0% {
+    background-color: rgba(34, 197, 94, 0.55);
+    border-color: #22c55e;
+    box-shadow: 0 0 25px rgba(34, 197, 94, 0.8);
+    transform: scale(1.03);
+  }
+  50% {
+    background-color: rgba(34, 197, 94, 0.4);
+    box-shadow: 0 0 35px rgba(34, 197, 94, 0.6);
+  }
+  100% {
+    background-color: rgba(34, 197, 94, 0.28);
+    border-color: #22c55e;
+    box-shadow: 0 0 16px rgba(34, 197, 94, 0.35);
+    transform: scale(1);
+  }
+}
+
+/* Wrong Flash: Orange border & background warning flash */
+@keyframes wrong-flash {
+  0% {
+    border-color: var(--color-warning);
+    background-color: rgba(249, 115, 22, 0.45);
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.6);
+  }
+  50% {
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.35);
+    box-shadow: 0 0 32px rgba(239, 68, 68, 0.7);
+  }
+  100% {
+    border-color: var(--color-warning);
+    background-color: rgba(249, 115, 22, 0.2);
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.3);
+  }
+}
+
+/* Level Up Text: Majestic pop up and settle */
+@keyframes level-up-text {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) translateY(50px);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.25) translateY(-10px);
+  }
+  60% {
+    transform: scale(1) translateY(0);
+  }
+  85% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Achievement Slide: Slide in notification toast */
+@keyframes achievement-slide {
+  0% {
+    opacity: 0;
+    transform: translateX(110%);
+  }
+  15% {
+    opacity: 1;
+    transform: translateX(-10px);
+  }
+  25% {
+    transform: translateX(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(110%);
+  }
+}
+
+/* Number Roll: Upward rolling counter */
+@keyframes number-roll {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Celebration: Radial burst explosion */
+@keyframes celebration {
+  0% {
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.95) 0%, rgba(139, 92, 246, 0.5) 30%, transparent 70%);
+    transform: scale(0.35);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  100% {
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, rgba(139, 92, 246, 0.2) 50%, transparent 80%);
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Twinkling: Star brightness pulsing */
+@keyframes twinkling {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Streak Fire: Animated blazing flame effect */
+@keyframes streak-fire {
+  0%, 100% {
+    transform: scale(1) rotate(-3deg);
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6));
+  }
+  25% {
+    transform: scale(1.15) rotate(3deg);
+    filter: drop-shadow(0 0 14px rgba(249, 115, 22, 0.9));
+  }
+  50% {
+    transform: scale(1.08) rotate(-3deg);
+    filter: drop-shadow(0 0 18px rgba(239, 68, 68, 0.9));
+  }
+  75% {
+    transform: scale(1.18) rotate(3deg);
+    filter: drop-shadow(0 0 14px rgba(251, 191, 36, 0.8));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Animation Utility Classes
+   -------------------------------------------------------------------------- */
+.anim-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.anim-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.anim-spin {
+  animation: spin 1s linear infinite;
+}
+
+.anim-bounce-in {
+  animation: bounce-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.anim-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+.anim-pop {
+  animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.anim-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.anim-slide-up {
+  animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.anim-slide-in-right {
+  animation: slide-in-right 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.anim-slide-out-left {
+  animation: slide-out-left 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.anim-correct {
+  animation: correct-flash 0.5s ease-out forwards;
+}
+
+.anim-wrong {
+  animation: shake 0.4s ease-in-out, wrong-flash 0.4s ease-out;
+}
+
+.anim-mascot-happy {
+  animation: mascot-happy 0.8s ease-in-out;
+}
+
+.anim-mascot-excited {
+  animation: mascot-excited 1.2s ease-in-out;
+}
+
+.anim-celebration {
+  animation: celebration 1s ease-out forwards;
+}
+
+.anim-twinkle {
+  animation: twinkling 2.5s ease-in-out infinite;
+}
+
+.anim-star-burst {
+  animation: star-burst 0.7s ease-out forwards;
+}
+
+.anim-streak-fire {
+  animation: streak-fire 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+.anim-level-up {
+  animation: level-up-text 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.anim-achievement-slide {
+  animation: achievement-slide 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.anim-number-roll {
+  animation: number-roll 0.4s ease-out forwards;
+}
+
+/* --------------------------------------------------------------------------
+   3. Reduced Motion Support (Accessibility)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
